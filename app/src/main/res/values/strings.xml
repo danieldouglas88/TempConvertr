@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">TempConverter</string>
+    <string name="textView">Degrees</string>
+    <string name="textView2">Celsius</string>
+    <string name="textView3">Fahrenheit</string>
+    <string name="textView4">37.778</string>
+    <string name="editText">100</string>
+</resources>
