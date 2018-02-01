@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity implements TextView.OnEditor
         //reference to widgets via R class
         editTextOne = findViewById(R.id.editTextOne);
         textViewFour = findViewById(R.id.textViewFour);
-
         editTextOne.setOnEditorActionListener(this);
     }
 
@@ -38,5 +37,28 @@ public class MainActivity extends AppCompatActivity implements TextView.OnEditor
         float fToC = (Float.parseFloat(fahrenheit) - 32) * 5/9;
         String str = String.valueOf(fToC);
         textViewFour.setText(str);
+    }
+
+    public String returnVal() {
+            //get input and calculate
+        fahrenheit = editTextOne.getText().toString();
+            float fToC = (Float.parseFloat(fahrenheit) - 32) * 5/9;
+            String str = String.valueOf(fToC);
+            textViewFour.setText(str);
+
+        return str;
+        }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        textViewFour.setText(returnVal());
+        editTextOne.setText(returnVal());
+    }
+    @Override
+    protected void onResume(){
+        super.onResume();
+        textViewFour.setText(returnVal());
+        editTextOne.setText(returnVal());
     }
 }
