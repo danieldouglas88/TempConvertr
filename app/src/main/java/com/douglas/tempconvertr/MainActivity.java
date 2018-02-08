@@ -1,15 +1,24 @@
 package com.douglas.tempconvertr;
 
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.view.View.OnClickListener;
 
-public class MainActivity extends AppCompatActivity implements TextView.OnEditorActionListener {
+
+public class MainActivity extends AppCompatActivity implements TextView.OnEditorActionListener, OnClickListener  {
+
+    // define the SharedPreferences object
+    private SharedPreferences savedValues;
+
+    // define instance variables that should be saved
+    private String billAmountString = "";
 
     //declare instance variables for widgets
-
     private EditText editTextOne;
     private TextView textViewFour;
     private String fahrenheit;
@@ -23,6 +32,9 @@ public class MainActivity extends AppCompatActivity implements TextView.OnEditor
         editTextOne = findViewById(R.id.editTextOne);
         textViewFour = findViewById(R.id.textViewFour);
         editTextOne.setOnEditorActionListener(this);
+
+        // get SharedPreferences object
+        savedValues = getSharedPreferences("SavedValues",MODE_PRIVATE);
     }
 
     @Override
@@ -34,31 +46,38 @@ public class MainActivity extends AppCompatActivity implements TextView.OnEditor
     private void fahrenheitToCelsius() {
         //get input and calculate
         fahrenheit = editTextOne.getText().toString();
-        float fToC = (Float.parseFloat(fahrenheit) - 32) * 5/9;
+        float fToC = (Float.parseFloat(fahrenheit) - 32) * 5 / 9;
         String str = String.valueOf(fToC);
         textViewFour.setText(str);
     }
 
-    public String returnVal() {
-            //get input and calculate
-        fahrenheit = editTextOne.getText().toString();
-            float fToC = (Float.parseFloat(fahrenheit) - 32) * 5/9;
-            String str = String.valueOf(fToC);
-            textViewFour.setText(str);
-
-        return str;
-        }
-
     @Override
-    protected void onPause(){
+    public void onPause() {
+        // save the instance variables
+        SharedPreferences.Editor editor = savedValues.edit();
+        editor.putString("billAmountString", billAmountString);
+        editor.commit();
+
         super.onPause();
-        textViewFour.setText(returnVal());
-        editTextOne.setText(returnVal());
     }
+
     @Override
-    protected void onResume(){
+    public void onResume() {
         super.onResume();
-        textViewFour.setText(returnVal());
-        editTextOne.setText(returnVal());
+
+        // get the instance variables
+        billAmountString = savedValues.getString("billAmountString", "");
+
+        // set the bill amount on its widget
+        textViewFour.setText(billAmountString);
+
+        // calculate and display
+        fahrenheitToCelsius();
     }
+
+    @Override
+    public void onClick(View v) {
+      fahrenheitToCelsius();
+    }
+
 }
