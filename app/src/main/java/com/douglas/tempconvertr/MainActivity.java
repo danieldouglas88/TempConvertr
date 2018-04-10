@@ -1,27 +1,30 @@
 package com.douglas.tempconvertr;
 
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
 
-
-public class MainActivity extends AppCompatActivity implements TextView.OnEditorActionListener, OnClickListener  {
-
-    // define the SharedPreferences object
-    private SharedPreferences savedValues;
-
-    // define instance variables that should be saved
-    private String billAmountString = "";
+public class MainActivity extends AppCompatActivity implements OnClickListener  {
 
     //declare instance variables for widgets
-    private EditText editTextOne;
+    private RadioButton trueVal;
+    private RadioButton falseVal;
     private TextView textViewFour;
-    private String fahrenheit;
+    private TextView textViewOne;
+    private String trueOrFalse;
+    private int counter = 0;
+    private int gameCount = 0;
+    private TextView textViewFive;
+    private Button button;
+    private Button buttonTwo;
+
+    private String questions[] = {"Sacramento is the capital of Cali?", "Chicago is the capital of Illinois?",
+    "New york is the capital of New York?", "Tallahassee is the capital of Florida?", "Salem is capital of Oregon?"};
+    private String questionsTF[] = {"true", "false", "false", "true", "true"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,55 +32,75 @@ public class MainActivity extends AppCompatActivity implements TextView.OnEditor
         setContentView(R.layout.activity_main);
 
         //reference to widgets via R class
-        editTextOne = findViewById(R.id.editTextOne);
         textViewFour = findViewById(R.id.textViewFour);
-        editTextOne.setOnEditorActionListener(this);
-
-        // get SharedPreferences object
-        savedValues = getSharedPreferences("SavedValues",MODE_PRIVATE);
+        textViewOne = findViewById(R.id.textViewOne);
+        textViewFive = findViewById(R.id.textViewFive);
+        button = findViewById(R.id.button);
+        buttonTwo = findViewById(R.id.button2);
+        trueVal = findViewById(R.id.True);
+        falseVal = findViewById(R.id.False);
+        button.setOnClickListener(this);
+        buttonTwo.setOnClickListener(this);
     }
 
-    @Override
-    public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-        fahrenheitToCelsius();
-        return false;
-    }
+    private void trueOrFalse() {
+        //get input and determine if true or false
+        if (trueVal.isChecked()) {
+            trueOrFalse = "true";
+        }
+        if (falseVal.isChecked()) {
+            trueOrFalse = "false";
+        }
 
-    private void fahrenheitToCelsius() {
-        //get input and calculate
-        fahrenheit = editTextOne.getText().toString();
-        float fToC = (Float.parseFloat(fahrenheit) - 32) * 5 / 9;
-        String str = String.valueOf(fToC);
-        textViewFour.setText(str);
+        if (gameCount == 5) {
+            textViewFour.setText("Game Over.");
+
+        } else {
+
+            if (trueOrFalse.equals(questionsTF[gameCount])) {
+                textViewFour.setText(questionsTF[gameCount]  + " was last answer.");
+                textViewFive.setText(questions[gameCount]);
+                gameCount++;
+                textViewOne.setText("Games won: " + Integer.toString(counter) + " out of 5.");
+                counter++;
+
+            } else {
+                textViewFour.setText(trueOrFalse  + " was last answer.");
+                textViewFive.setText(questions[gameCount]);
+                textViewOne.setText("Games won: " + Integer.toString(counter) + " out of 5.");
+                gameCount++;
+            }
+        }
     }
 
     @Override
     public void onPause() {
-        // save the instance variables
-        SharedPreferences.Editor editor = savedValues.edit();
-        editor.putString("billAmountString", billAmountString);
-        editor.commit();
-
         super.onPause();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-
-        // get the instance variables
-        billAmountString = savedValues.getString("billAmountString", "");
-
-        // set the bill amount on its widget
-        textViewFour.setText(billAmountString);
-
-        // calculate and display
-        fahrenheitToCelsius();
-    }
+        }
 
     @Override
     public void onClick(View v) {
-      fahrenheitToCelsius();
-    }
 
-}
+        switch (v.getId()) {
+
+            case R.id.button:
+                trueOrFalse();
+                trueVal.setChecked(false);
+                falseVal.setChecked(false);
+                break;
+
+            case R.id.button2:
+                this.recreate();
+                break;
+
+            default:
+                trueOrFalse();
+                break;
+        }
+    }
+    }

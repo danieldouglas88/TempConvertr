@@ -4,64 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.douglas.tempconvertr.MainActivity">
+    tools:context="com.douglas.tempconvertr.MainActivity"
+    tools:layout_editor_absoluteY="81dp">
 
     <TextView
         android:id="@+id/textViewOne"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="18dp"
         android:text="@string/textViewOne"
-        android:textSize="18sp"
+        android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/editTextOne"
-        app:layout_constraintStart_toStartOf="@+id/editTextOne" />
-
-    <TextView
-        android:id="@+id/textViewTwo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/textViewTwo"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textViewFour"
-        app:layout_constraintEnd_toEndOf="@+id/textViewThree" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView"
+        app:layout_constraintStart_toStartOf="@+id/guideline" />
 
     <TextView
         android:id="@+id/textViewThree"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="23dp"
-        android:layout_marginEnd="27dp"
-        android:text="@string/textViewThree"
+        android:layout_marginStart="15dp"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/textViewTwo"
-        app:layout_constraintEnd_toStartOf="@+id/editTextOne" />
+        app:layout_constraintBottom_toTopOf="@+id/textViewFour"
+        app:layout_constraintStart_toStartOf="@+id/textViewFour" />
 
     <TextView
         android:id="@+id/textViewFour"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="13dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="108dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="108dp"
         android:text="@string/textViewFour"
-        android:textSize="18sp"
+        android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextOne" />
-
-    <EditText
-        android:id="@+id/editTextOne"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="99dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="@string/editTextOne"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/textViewFour"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/textViewFive"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/button" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
@@ -89,6 +68,63 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="20dp" />
+        app:layout_constraintGuide_begin="46dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="29dp"
+        app:layout_constraintBottom_toTopOf="@+id/textViewThree"
+        app:layout_constraintEnd_toStartOf="@+id/textViewOne"
+        app:layout_constraintStart_toStartOf="@+id/textViewOne" />
+
+    <TextView
+        android:id="@+id/textViewFive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="54dp"
+        android:layout_marginStart="1dp"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:text="Check"
+        app:layout_constraintStart_toStartOf="@+id/True"
+        app:layout_constraintTop_toBottomOf="@+id/True" />
+
+    <RadioButton
+        android:id="@+id/True"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="71dp"
+        android:layout_marginTop="34dp"
+        android:text="True"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline4" />
+
+    <RadioButton
+        android:id="@+id/False"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="False"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="@+id/button"
+        app:layout_constraintStart_toEndOf="@+id/button" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="81dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="4dp"
+        android:text="@string/pref_title_new_message_notifications"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="227dp" />
 
 </android.support.constraint.ConstraintLayout>
